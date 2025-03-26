@@ -1,0 +1,26 @@
+<course id>,  <coding class name> - <trimester term> <trimester year>
+<1>, <Intro to Programming> - <Fall> <2025>
+<2>, <React> - <Fall> <2025>
+<3>, <NodeJS> - <Fall> <2025>
+<4>, <Ruby on Rails> - <Fall> <2025>
+<5>, <Python> - <Fall> <2025>
+
+Question 1
+
+41, "sherry_oconnell@nolan-gerhold.example",
+42, "marvin@schinner-weimann.test"
+
+trimester = Trimester.find_by(year: '2025', term: 'Spring')
+coding_class = CodingClass.find_by(title: 'Intro to Programming')
+current_course = Course.where(trimester_id: trimester, coding_class_id: coding_class)
+enrollments = Enrollment.joins(:student).where(course_id: current_course).limit(2).pluck('students.id', 'students.email')
+
+Question 2
+trimester = Trimester.find_by(year: '2025', term: 'Spring')
+coding_class = CodingClass.find_by(title: 'Intro to Programming')
+current_course = Course.where(trimester_id: trimester, coding_class_id: coding_class)
+ungraded_enrollments = Enrollment.where(course_id: current_course, final_grade: nil)
+ungraded_enrollments_mentor_assignments = MentorEnrollmentAssignment.joins(:mentor).where(enrollment_id: ungraded_enrollments).limit(2).pluck('mentors.id', 'mentors.email')
+
+25, "alexis@mertz-steuber.example",
+26, "quinn.carter@lehner.example"
