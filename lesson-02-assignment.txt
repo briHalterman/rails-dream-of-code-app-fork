@@ -1,0 +1,73 @@
+Question 1
+
+spring2026 = Trimester.create(year: '2026', term: 'Spring', application_deadline: '2026-01-15', start_date: "2026-03-01", end_date: "2026-06-30")
+CodingClass.all.each do | cc |
+  Course.create(coding_class_id: cc.id, trimester_id: spring2026.id, max_enrollment: 30)
+end
+
+Question 2
+
+intro_class = CodingClass.find_by(title: "Intro to Programming")
+course = Course.find_by(trimester_id: spring2026.id, coding_class_id: intro_class.id);
+new_student = Student.create(first_name: 'Colby', last_name: 'Johnson', email: 'colby.jack@test.com')
+enrollment = Enrollment.create(course_id: course.id, student_id: new_student.id)
+
+available_mentor_id = MentorEnrollmentAssignment.joins(:mentor).group(:mentor_id).having('COUNT(mentor_id) <= 2').pluck(:mentor_id).first
+available_mentor = Mentor.find_by(id: available_mentor_id)
+:MentorEnrollmentAssignment.create(mentor_id: available_mentor.id, enrollment_id: enrollment.id)
+
+Question 3
+
+I want to build a personalized flashcard app to help students actively study and retain information.
+Any user who is studying can fill out a form to create a new flashcard. Each card can include a term,
+definition, course, topic, and keyword(s). Users can then generate custom decks from their cards based
+on any of those characteristics, such as a deck for all cards in the course Intro to Programming, or
+all cards tagged with the keyword dinosaurs.
+
+Once a deck is created, flashcards will display one at a time. Users can flip the card to view the definition,
+move the card to the back of the deck for further review, or remove it from the deck if they've mastered it.
+
+I can think of a few ways I could build this out beyond the MVP. It would be great to be able to save
+decks (with removed cards replaced). Another useful feature could be a glossary that gets created to go
+along with each deck for an easy reference of the terms and definitions. The ability to add an image to
+a flashcard could be really useful.
+
+Question 4
+
+flashcards, decks, terms, definitions, courses, topics, keywords
+
+Table: Flashcards
+id
+term
+definition
+created_at
+updated_at
+
+Table: Courses
+id
+flashcard_id
+name
+created_at
+updated_at
+
+Table: Topics
+id
+flashcard_id
+name
+created_at
+updated_at
+
+Table: Keywords
+id
+flashcard_id
+name
+created_at
+updated_at
+
+Table: Decks
+id
+flashcard_id
+created_at
+updated_at
+
+I believe I still have some work to do creating join tables.
