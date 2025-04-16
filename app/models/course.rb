@@ -15,6 +15,11 @@ class Course < ApplicationRecord
   end
 
   def student_email_list
-    []
+    emails_list = []
+    enrollments.each do |enrollment|
+      emails_list << enrollment.student.email
+    end
+
+    emails_list
   end
 end
