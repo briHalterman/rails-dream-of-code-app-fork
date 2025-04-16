@@ -15,5 +15,6 @@ class Course < ApplicationRecord
   end
 
   def student_email_list
+    []
   end
 end
