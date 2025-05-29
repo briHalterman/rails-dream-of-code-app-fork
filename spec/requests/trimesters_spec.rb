@@ -31,3 +31,21 @@ RSpec.describe 'Trimesters', type: :request do
     end
   end
 end
+
+describe 'GET /trimesters/:id' do
+  let!(:trimester) do
+    Trimester.create!(
+      term: 'Fall',
+      year: '2025',
+      start_date: '2025-01-01',
+      end_date: '2025-01-01',
+      application_deadline: '2025-01-01'
+    )
+  end
+
+  it 'returns a page containing the details of a selected trimester' do
+    get "/trimesters/#{trimester.id}"
+    expect(response.body).to include('Term: Fall')
+    expect(response.body).to include('Year: 2025')
+  end
+end
