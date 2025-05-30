@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/dashboard', to: 'admin_dashboard#index'
   resources :students
   resources :mentors
   resources :enrollments
