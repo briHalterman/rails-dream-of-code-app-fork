@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe 'Dashboard', type: :request do
+  before do
+    current_trimester = Trimester.create!(
+      term: 'Current term',
+      year: Date.today.year.to_s,
+      start_date: Date.today - 1.day,
+      end_date: Date.today + 2.months,
+      application_deadline: Date.today - 16.days
+    )
+
+    # past_trimester = Trimester.create!(
+    #   term: 'Past term',
+    #   year: (Date.today.year - 1.year).to_s,
+    #   start_date: Date.today - 1.day - 1.year,
+    #   end_date: Date.today + 2.months - 1.year,
+    #   application_deadline: Date.today - 16.days - 1.year
+    # )
+  end
+
   describe 'GET /dashboard' do
     it 'returns 200 OK status' do
       # Send a GET request to the dashboard route
@@ -11,6 +29,8 @@ RSpec.describe 'Dashboard', type: :request do
     end
 
     it 'displays the current trimester' do
+      get '/dashboard'
+      expect(response.body).to include("Current term #{Date.today.year}")
     end
 
     it 'displays links to the courses in the current trimester' do
