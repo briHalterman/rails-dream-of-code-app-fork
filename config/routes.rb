@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   get '/dashboard', to: 'admin_dashboard#index'
+
   resources :students
   resources :mentors
   resources :enrollments
   resources :mentor_enrollment_assignments
   resources :lessons
-  resources :courses
+  resources :courses, only: [:index, :show]
   resources :coding_classes
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
