@@ -1,6 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @course %>
+<h1>Course Page</h1>
+<h2> <%= @course.coding_class.name %> </h2>
+
+<h3>Enrolled Students</h3>
+<ul>
+  <% @students.each do |student| %>
+    <li>
+      <%= student.name %>
+    </li>
+  <% end %>
+</ul>
 
 <div>
   <%= link_to "Edit this course", edit_course_path(@course) %> |
