@@ -43,13 +43,7 @@ RSpec.describe 'Dashboard', type: :request do
     end
 
     it 'displays links to the courses in the current trimester' do
-      # get '/dashboard'
 
-      # expect(response.body).to include('Intro to Programming')
-      # expect(response.body).to include('React')
-      # expect(response.body).to include('NodeJS')
-      # expect(response.body).to include('Ruby on Rails')
-      # expect(response.body).to include('Python')
     end
 
     it 'displays the upcoming trimester' do
